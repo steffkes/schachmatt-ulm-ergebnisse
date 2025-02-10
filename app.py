@@ -107,7 +107,7 @@ st.altair_chart(
         .encode(
             x=alt.X("Runde:O"),
             y=alt.Y("Zeit"),
-            color=alt.Color("qualified", legend=None).scale(range=["#080", "#f00"]),
+            color=alt.Color("qualified", legend=None).scale(range=["#f00", "#080"]),
         ),
         alt.Chart(df)
         .mark_line(color="black")
