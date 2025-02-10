@@ -93,7 +93,7 @@ teams = dict(
 
 selected_team = st.selectbox(
     "Für welches Team möchtest du die Ergebnisse sehen?",
-    sorted(df["Startnummer"].unique().tolist()),
+    sorted(df["Startnummer"].unique().tolist(), key=int),
     format_func=lambda team: teams[team],
 )
 
