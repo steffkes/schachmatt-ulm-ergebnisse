@@ -103,6 +103,15 @@ selected_team = st.selectbox(
 )
 
 roundsList = ["Q", "1", "2", "3", "4", "5", "6", "7"]
+tooltips = [
+    "Runde",
+    "Zeit",
+    "Startnummer",
+    "Name",
+    "Team",
+    "qualified",
+    "Gegner",
+]
 
 st.altair_chart(
     alt.layer(
@@ -113,6 +122,7 @@ st.altair_chart(
             x=alt.X("Runde:O"),
             y=alt.Y("Zeit"),
             color=alt.Color("qualified", legend=None).scale(range=["#f00", "#080"]),
+            tooltip=tooltips,
         ),
         alt.Chart(df)
         .mark_point()
@@ -123,6 +133,7 @@ st.altair_chart(
             x=alt.X("Runde:O"),
             y=alt.Y("Zeit"),
             color=alt.Color("qualified", legend=None),
+            tooltip=tooltips,
         ),
         alt.Chart(df)
         .mark_line(color="black")
@@ -133,6 +144,7 @@ st.altair_chart(
             x=alt.X("Runde:O").axis(labelAngle=0).scale(domain=roundsList),
             y=alt.Y("Zeit").scale(reverse=True),
         ),
+            tooltip=tooltips,
     ),
     use_container_width=True,
 )
