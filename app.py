@@ -19,14 +19,19 @@ fieldNames = [
 ]
 
 
+def dataMapper(entry):
+    data = dict(zip(fieldNames, entry))
+    return data
+
+
 def dataMapperQuali(row):
-    return map(lambda entry: dict(zip(fieldNames, entry)), row)
+    return map(dataMapper, row)
 
 
 def dataMapperRunde(row):
     [black, white] = row
-    black = dict(zip(fieldNames, black))
-    white = dict(zip(fieldNames, white))
+    black = dataMapper(black)
+    white = dataMapper(white)
 
     return [
         {**black, "Gegner": white["Startnummer"]},
