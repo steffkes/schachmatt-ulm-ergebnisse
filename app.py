@@ -110,6 +110,16 @@ st.altair_chart(
             color=alt.Color("qualified", legend=None).scale(range=["#f00", "#080"]),
         ),
         alt.Chart(df)
+        .mark_point()
+        .transform_filter(
+            alt.FieldEqualPredicate(field="Startnummer", equal=selected_team)
+        )
+        .encode(
+            x=alt.X("Runde:O"),
+            y=alt.Y("Zeit"),
+            color=alt.Color("qualified", legend=None).scale(range=["#f00", "#080"]),
+        ),
+        alt.Chart(df)
         .mark_line(color="black")
         .transform_filter(
             alt.FieldEqualPredicate(field="Startnummer", equal=selected_team)
