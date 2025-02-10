@@ -84,7 +84,7 @@ def teamHelper(row):
     return (row["Startnummer"], "#{Startnummer}: {Name} ({Team})".format(**row))
 
 
-teams = dict(
+teamLabels = dict(
     teamHelper(row)
     for (_index, row) in df[["Startnummer", "Name", "Team"]]
     .drop_duplicates()
@@ -94,7 +94,7 @@ teams = dict(
 selected_team = st.selectbox(
     "Für welches Team möchtest du die Ergebnisse sehen?",
     sorted(df["Startnummer"].unique().tolist(), key=int),
-    format_func=lambda team: teams[team],
+    format_func=lambda bib: teamLabels[bib],
 )
 
 roundsList = ["Q", "1", "2", "3", "4", "5", "6", "7"]
