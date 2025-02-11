@@ -65,7 +65,7 @@ def helper(runde, selector):
     df["qualified"] = df["qualified"] == "Q"
     df["Runde"] = runde
 
-    return df
+    return df[df["_platz"] != "DNF"]
 
 
 df = pd.concat(
@@ -146,6 +146,23 @@ st.altair_chart(
             y=alt.Y("Zeit:T", timeUnit="minutesseconds").title("Zeit"),
             tooltip=tooltips,
         ),
+    ),
+    use_container_width=True,
+)
+
+st.altair_chart(
+    alt.Chart(df)
+    .mark_point()
+    .transform_calculate(jitter="sqrt(-2*log(random()))*cos(2*PI*random())")
+    .encode(
+        x=alt.X("Runde:O").axis(labelAngle=0).scale(domain=roundsList),
+        y=alt.Y("Zeit:T", timeUnit="minutesseconds").title("Zeit"),
+        xOffset="jitter:Q",
+        color=alt.Color("Runde", legend=None),
+        tooltip=[
+            "Runde",
+            alt.Tooltip("minutesseconds(Zeit)", title="Zeit"),
+        ],
     ),
     use_container_width=True,
 )
