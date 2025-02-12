@@ -167,5 +167,24 @@ st.altair_chart(
     use_container_width=True,
 )
 
+dsq1 = df[(df["Runde"] == "1") & (df["qualified"] == False)]
+ll1 = df[
+    (df["Startnummer"].isin(dsq1["Startnummer"])) & ~(df["Runde"].isin(["Q", "1"]))
+]
+grouped = ll1.groupby("Startnummer").agg(
+    Runden=("Runde", "max"),
+)
+
+st.altair_chart(
+    alt.Chart(grouped, title="Wann sind die Lucky Loosers ausgeschieden?")
+    .mark_bar()
+    .encode(
+        x=alt.X("Runden", title="Runde").axis(labelAngle=0).scale(domain=roundsList),
+        y=alt.Y("count()", title="Anzahl"),
+    ),
+    use_container_width=True,
+)
+
+
 if st.checkbox("Rohdaten anzeigen?"):
     st.write(df)
