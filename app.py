@@ -116,7 +116,7 @@ tooltips = [
 
 st.altair_chart(
     alt.layer(
-        alt.Chart(df)
+        alt.Chart(df, title=teamLabels[selected_team])
         .mark_point()
         .transform_filter(alt.FieldEqualPredicate(field="Gegner", equal=selected_team))
         .encode(
@@ -151,7 +151,7 @@ st.altair_chart(
 )
 
 st.altair_chart(
-    alt.Chart(df)
+    alt.Chart(df, title="Gelaufene Zeiten pro Runde")
     .mark_point()
     .transform_calculate(jitter="sqrt(-2*log(random()))*cos(2*PI*random())")
     .encode(
